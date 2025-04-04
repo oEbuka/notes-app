@@ -1,6 +1,9 @@
-module.exports = {
-    development: {
-      storage: './notes.db', // Creates a file automatically
-      dialect: 'sqlite'
-    }
-  };
+const { Sequelize } = require('sequelize');
+
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: './notes.db',
+  logging: false
+});
+
+module.exports = sequelize;
