@@ -39,4 +39,4 @@ http://localhost:3000/api-docs
 
 
 ## Check it out here : 
-[notes-app-7y4y.onrender.com]
+[notes-api](notes-app-7y4y.onrender.com)
