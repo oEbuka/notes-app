@@ -65,16 +65,6 @@ app.use('/', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/notes', notesRouter);
 
 
-if (process.env.NODE_ENV === 'production') {
-  const fs = require('fs');
-  const path = require('path');
-  const dir = '/tmp/data';
-  
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-}
-
 sequelize.sync({ force: true })
   .then(() => {
     app.listen(3000, () => {
