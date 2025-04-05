@@ -36,7 +36,3 @@ node app.js
 ```
 http://localhost:3000/api-docs
 ```
-
-
-## Check it out here : 
-[notes-api](notes-app-7y4y.onrender.com)
