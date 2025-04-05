@@ -1,19 +1,19 @@
 const { Sequelize } = require('sequelize');
 
-// const sequelize = new Sequelize({
-//   dialect: 'sqlite',
-//   storage,
-//   logging: false
-// });
 
-// module.exports = sequelize;
+const connectionString = process.env.DATABASE_URL || {
+  dialect: 'sqlite',
+  storage: './notes.db',
+  logging: false
+};
 
-module.exports = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres',
-  dialectOptions: {
+const sequelize = new Sequelize(connectionString, {
+  dialectOptions: process.env.DATABASE_URL ? {
     ssl: {
       require: true,
-      rejectUnauthorized: false // Needed for Render's PostgreSQL
+      rejectUnauthorized: false 
     }
-  }
+  } : {}
 });
+
+module.exports = sequelize;
