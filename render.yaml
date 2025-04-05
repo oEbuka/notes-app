@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: notes-api-with-swagger
+    runtime: node
+    buildCommand: npm install
+    startCommand: node app.js
+    env: node
+    envVars:
+      - key: NODE_ENV
+        value: production

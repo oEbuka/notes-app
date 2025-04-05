@@ -4,11 +4,10 @@ const swaggerUi = require('swagger-ui-express');
 const notesRouter = require('./routes/notes');
 const sequelize = require('./config/database');
 
-// Initialize Express
 const app = express();
 app.use(express.json());
 
-// Swagger setup
+// swagger setup
 const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
@@ -19,8 +18,10 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
-        description: 'Development server'
+        url: process.env.RENDER_EXTERNAL_URL || 'http://localhost:3000',
+        description: process.env.NODE_ENV === 'production' 
+          ? 'Production server' 
+          : 'Development server'
       }
     ],
     components: {
@@ -55,16 +56,15 @@ const swaggerOptions = {
       }
     }
   },
-  apis: ['./routes/*.js'] // Now looking at route files for docs
+  apis: ['./routes/*.js'] 
 };
 
 const specs = swaggerJsdoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+app.use('/', swaggerUi.serve, swaggerUi.setup(specs));
 
-// Routes
 app.use('/notes', notesRouter);
 
-// Sync database and start server
+
 sequelize.sync({ force: true })
   .then(() => {
     app.listen(3000, () => {
