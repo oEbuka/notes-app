@@ -60,9 +60,10 @@ const swaggerOptions = {
 };
 
 const specs = swaggerJsdoc(swaggerOptions);
+app.use('/notes', notesRouter);
 app.use('/', swaggerUi.serve, swaggerUi.setup(specs));
 
-app.use('/notes', notesRouter);
+
 
 
 sequelize.sync({ force: true })
